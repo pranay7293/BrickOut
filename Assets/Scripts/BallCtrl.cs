@@ -34,11 +34,16 @@ public class BallCtrl : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<BallShooter>() != null)
+        if (isGrounded)
         {
-            BallShooter shooter = collision.GetComponent<BallShooter>();
-            shooter.IncreaseBalls();
-            Destroy(gameObject);
+            if (collision.GetComponent<BallShooter>() != null)
+            {
+                BallShooter shooter = collision.GetComponent<BallShooter>();
+                shooter.IncreaseBalls();
+                Destroy(gameObject);
+            }
+
         }
+       
     }
 }
