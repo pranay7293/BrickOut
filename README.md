@@ -5,7 +5,7 @@ Break the Bricks Clone with 4 Levels.
 
 1. Singleton Design Pattern for Level Manager and Sound Manager.
 2. Particle System Effects for Bricks Destroy.
-3. Dotted Line Singleton for aiming the Bricks from Shoot Ball.
+3. Dotted Line Singleton for aiming the Bricks from the shot ball.
 4. Raycasting to destroy bricks using Power Bricks.
 5. Level Locking System using PlayerPrefs 
 
@@ -23,5 +23,6 @@ Break the Bricks Clone with 4 Levels.
 4. Power Brick 2: Dynamite Brick: Clears adjacent bricks from the four directions on clearing Dynamite Brick
 5. Level Unlocking System: You can play the next level only by clearing the current level.
 6. Movable Shoot Ball and Wide Angle Shoot Range. 
+<be>
 
 
