@@ -13,14 +13,22 @@ public class LevelController : MonoBehaviour
     {
         if (numOfBricks == 0)
         {
-            levelCompleteMenu.SetActive(true);
+            Invoke("LevelComplete", 2.0f);
         }
         if (brickGrid.transform.position.y < -4f)
         {
-            gameOverMenu.SetActive(true);
-        }       
+            Invoke("LevelFailed", 2.0f);
+        }
     }
     
+    public void LevelComplete()
+    {
+        levelCompleteMenu.SetActive(true);
+    }
+    public void LevelFailed()
+    {
+        gameOverMenu.SetActive(true);
+    }
     public void DecreaseBricks()
     {
         numOfBricks--;
