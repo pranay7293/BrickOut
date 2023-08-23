@@ -1,5 +1,4 @@
-# BrickOut
-## BrickOut - Shoot the Ball 
+# BrickOut - Shoot the Ball 
 Break the Bricks Clone with 4 Levels. 
 
 ### Concepts used:
