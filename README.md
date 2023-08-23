@@ -1,6 +1,8 @@
 # BrickOut - Shoot the Ball 
 Break the Bricks Clone with 4 Levels. 
 
+[Click here to Play the Game](https://pranay7293.itch.io/brickout) <br> [Click here to Watch the Gameplay](https://youtu.be/6l_MpogWFeo)
+
 ### Concepts used:
 
 1. Singleton Design Pattern for Level Manager and Sound Manager.
