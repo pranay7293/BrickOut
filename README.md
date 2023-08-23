@@ -28,7 +28,9 @@ Break the Bricks Clone with 4 Levels.
 8. Number balls can be shot changes with difficulty and level from 25 to 99. 
 <br>
 ## Brick Sprites: 
-<br>
+<be>
+
+
 ![BrickSprite2](https://github.com/pranay7293/BrickOut/assets/119421688/b718892e-0e7d-4158-a4b7-5c270c379be7)
 
 
