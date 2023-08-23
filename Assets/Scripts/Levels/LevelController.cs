@@ -28,7 +28,7 @@ public class LevelController : MonoBehaviour
     public void MoveBricks()
     {
         Vector2 temp = brickGrid.transform.position;
-        temp.y -= 1;
+        temp.y--;
         brickGrid.transform.position = temp;
     }
 

@@ -37,7 +37,8 @@ public class LobbyController : MonoBehaviour
         buttonResetLevels.onClick.AddListener(ResetLevels);
         Backbutton.onClick.AddListener(BackButton);
         Backbutton2.onClick.AddListener(BackButton);
-
+        Music.onClick.AddListener(ChangeMusicSprite);
+        Sound.onClick.AddListener(ChangeSoundSprite);
     }
 
     private void ChangeSoundSprite()

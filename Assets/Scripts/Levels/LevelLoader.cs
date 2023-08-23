@@ -1,13 +1,15 @@
-using Unity.VisualScripting;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
-{
+{   
     private Button button;
     public string LevelName;
+    public TextMeshProUGUI levelUnlock;
 
     private void Awake()
     {
@@ -22,7 +24,7 @@ public class LevelLoader : MonoBehaviour
         {
             case LevelStatus.Locked:
                 SoundManager.Instance.PlaySound(Sounds.Error);
-                Debug.Log("can't play this level till you unlock it");
+                StartCoroutine(ClearLevelUnlockText());
                 break;
             case LevelStatus.Unlocked:
                 SoundManager.Instance.PlaySound(Sounds.LevelClick);
@@ -33,5 +35,13 @@ public class LevelLoader : MonoBehaviour
                 SceneManager.LoadScene(LevelName);
                 break;
         }
+    }
+    private IEnumerator ClearLevelUnlockText()
+    {
+        levelUnlock.text = "Complete previous level to Unlock this Level";
+
+        yield return new WaitForSeconds(2.5f);
+
+        levelUnlock.text = "";
     }
 }

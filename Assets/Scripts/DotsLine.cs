@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DotsLine : MonoBehaviour
 {
-   
-
     //Static Property with backing field
     public static DotsLine instance;
     public void Awake()

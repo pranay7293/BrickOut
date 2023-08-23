@@ -1,18 +1,16 @@
-using System;
 using UnityEngine;
 
 public class BrickController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem explosion1;
     [SerializeField] private ParticleSystem explosion2;
+    [SerializeField] private ParticleSystem explosion3;
     [SerializeField] private int brickNumber;
     [SerializeField] private GameObject overlay;
     [SerializeField] TextMesh text;
     [SerializeField] private LevelController levelController;
     [SerializeField] BrickType type;
     [SerializeField] private LayerMask layerMask;
-    private Vector3 initialPos;
-
 
 
     private void Start()
@@ -21,13 +19,12 @@ public class BrickController : MonoBehaviour
         {
             text.text = brickNumber.ToString();
         }
-        initialPos = transform.position;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent < BallCtrl>() != null)
         {
-            //SoundManager.Instance.PlayFX(SoundType.Brick_1_Hit);
+            SoundManager.Instance.PlaySound(Sounds.BrickHit);
             brickNumber--;
             if (type == BrickType.Stationary && brickNumber == 0)
             {
@@ -38,6 +35,11 @@ public class BrickController : MonoBehaviour
                 Demolish();
                 DestroyBrick();
             }
+            else if (type == BrickType.Smashing && brickNumber == 0)
+            {
+                SmashRow();
+                DestroyBrick();
+            }
             else
             {
                 text.text = brickNumber.ToString();
@@ -46,41 +48,67 @@ public class BrickController : MonoBehaviour
             Invoke("RemoveOverlay", 0.25f);
         }
     }
-    private void Demolish()
-    {
-        RaycastHit2D[] rightHits = Physics2D.RaycastAll(initialPos, Vector2.right, 50f, layerMask);
-        RaycastHit2D[] leftHits = Physics2D.RaycastAll(initialPos, -Vector2.right, 50f, layerMask);
-        RaycastHit2D[] topHits = Physics2D.RaycastAll(initialPos, Vector2.up, 50f, layerMask);
-        RaycastHit2D[] bottomHits = Physics2D.RaycastAll(initialPos, -Vector2.up, 50f, layerMask);
 
-        int bricks = (rightHits.Length - 1) + (leftHits.Length - 1) + (topHits.Length - 1) + (bottomHits.Length - 1) + 1;
-        for (int i = 0; i < rightHits.Length; i++)
+    private void SmashRow()
+    {
+        RaycastHit2D[] rightHits = Physics2D.RaycastAll(transform.position, Vector2.right, 50f, layerMask);
+        RaycastHit2D[] leftHits = Physics2D.RaycastAll(transform.position, -Vector2.right, 50f, layerMask);
+
+        foreach (RaycastHit2D hit in rightHits)
         {
-            RaycastHit2D hit = rightHits[i];
-            hit.collider.GetComponent<BrickController>().DestroyBrick();
+            if (hit.collider != null && hit.collider.gameObject != gameObject)
+            {
+                hit.collider.GetComponent<BrickController>().DestroyBrick();
+            }
         }
-        for (int i = 0; i < leftHits.Length; i++)
+
+        foreach (RaycastHit2D hit in leftHits)
         {
-            RaycastHit2D hit = leftHits[i];
-            hit.collider.GetComponent<BrickController>().DestroyBrick();
-        }
-        for (int i = 0; i < topHits.Length; i++)
-        {
-            RaycastHit2D hit = topHits[i];
-            hit.collider.GetComponent<BrickController>().DestroyBrick();
-        }
-        for (int i = 0; i < bottomHits.Length; i++)
-        {
-            RaycastHit2D hit = bottomHits[i];
-            hit.collider.GetComponent<BrickController>().DestroyBrick();
-        }
-        for (int i = 0; i < bricks; i++)
-        {
-            levelController.DecreaseBricks();
+            if (hit.collider != null && hit.collider.gameObject != gameObject)
+            {
+                hit.collider.GetComponent<BrickController>().DestroyBrick();
+            }
         }
     }
 
+    private void Demolish()
+    {
 
+        RaycastHit2D[] rightHits = Physics2D.RaycastAll(transform.position, Vector2.right, 1.0f, layerMask);
+        RaycastHit2D[] leftHits = Physics2D.RaycastAll(transform.position, Vector2.left, 1.0f, layerMask);
+        RaycastHit2D[] upHits = Physics2D.RaycastAll(transform.position, Vector2.up, 1.0f, layerMask);
+        RaycastHit2D[] downHits = Physics2D.RaycastAll(transform.position, Vector2.down, 1.0f, layerMask);
+       
+
+        foreach (RaycastHit2D hit in rightHits)
+        {
+            if (hit.collider != null && hit.collider.gameObject != gameObject)
+            {
+                hit.collider.GetComponent<BrickController>().DestroyBrick();
+            }
+        }
+        foreach (RaycastHit2D hit in leftHits)
+        {
+            if (hit.collider != null && hit.collider.gameObject != gameObject)
+            {
+                hit.collider.GetComponent<BrickController>().DestroyBrick();
+            }
+        }
+        foreach (RaycastHit2D hit in upHits)
+        {
+            if (hit.collider != null && hit.collider.gameObject != gameObject)
+            {
+                hit.collider.GetComponent<BrickController>().DestroyBrick();
+            }
+        }
+        foreach (RaycastHit2D hit in downHits)
+        {
+            if (hit.collider != null && hit.collider.gameObject != gameObject)
+            {
+                hit.collider.GetComponent<BrickController>().DestroyBrick();
+            }
+        }
+    }
 
     public void DestroyBrick()
     {
@@ -99,7 +127,14 @@ public class BrickController : MonoBehaviour
             SoundManager.Instance.PlaySound(Sounds.BrickDestroy2);
             Destroy(gameObject);
             Destroy(temp, 2.5f);
-        }        
+        }
+        else if (type == BrickType.Smashing)
+        {
+            GameObject temp = Instantiate(explosion3.gameObject, transform.position, Quaternion.identity);
+            SoundManager.Instance.PlaySound(Sounds.BrickDestroy2);
+            Destroy(gameObject);
+            Destroy(temp, 2.5f);
+        }
     }
 
     private void RemoveOverlay()
@@ -111,5 +146,6 @@ public class BrickController : MonoBehaviour
 public enum BrickType
 {
     Stationary,
-    Destroyer
+    Destroyer,
+    Smashing
 }
