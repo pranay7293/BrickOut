@@ -1,7 +1,7 @@
 # BrickOut - Shoot the Ball 
 Break the Bricks Clone with 4 Levels. 
 
-[Click here to Play the Game](https://pranay7293.itch.io/brickout) <br> [Click here to Watch the Gameplay](https://youtu.be/6l_MpogWFeo)
+[Click here to Play the Game](https://pranay7293.itch.io/brickout) <br> [Click here to Watch the Gameplay](https://youtu.be/-3GXkA0t6-4)
 
 ### Concepts used:
 
