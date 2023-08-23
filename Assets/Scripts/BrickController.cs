@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class BrickController : MonoBehaviour
@@ -7,7 +8,7 @@ public class BrickController : MonoBehaviour
     [SerializeField] private ParticleSystem explosion3;
     [SerializeField] private int brickNumber;
     [SerializeField] private GameObject overlay;
-    [SerializeField] TextMesh text;
+    [SerializeField] TextMeshPro text;
     [SerializeField] private LevelController levelController;
     [SerializeField] BrickType type;
     [SerializeField] private LayerMask layerMask;
