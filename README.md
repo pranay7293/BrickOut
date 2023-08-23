@@ -26,7 +26,7 @@ Break the Bricks Clone with 4 Levels.
 6. Movable Shoot Ball and Wide Angle Shoot Range.
 7. Bricks with different numbers need the same number of balls to hit to clear the brick.
 8. Number balls can be shot changes with difficulty and level from 25 to 99. 
-<be>
+<br>
 ## Brick Sprites: 
 <br>
 ![BrickSprite2](https://github.com/pranay7293/BrickOut/assets/119421688/b718892e-0e7d-4158-a4b7-5c270c379be7)
