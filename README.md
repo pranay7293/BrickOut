@@ -24,8 +24,9 @@ Break the Bricks Clone with 4 Levels.
 4. Power Brick 2: Dynamite Brick: Clears adjacent bricks from the four directions on clearing Dynamite Brick
 5. Level Unlocking System: You can play the next level only by clearing the current level.
 6. Movable Shoot Ball and Wide Angle Shoot Range.
-7. Bricks with different 
-<be>
+7. Bricks with different numbers need the same number of balls to hit to clear the brick.
+8. Number balls can be shot changes with difficulty and level from 25 to 99. 
+<br>
 
 Brr
 
