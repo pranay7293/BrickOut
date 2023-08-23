@@ -29,7 +29,9 @@ Break the Bricks Clone with 4 Levels.
 <be>
 ## Brick Sprites: 
 <br>
+
 ![BrickSprite2](https://github.com/pranay7293/BrickOut/assets/119421688/de9ceca6-2efe-41eb-ba1c-a5dd736db1b1)
+
 ![BrickSprite2 - Copy(2)](https://github.com/pranay7293/BrickOut/assets/119421688/9099e846-52fb-4d66-a9aa-410f6152cefc)
 ![BrickSprite2 - Copy](https://github.com/pranay7293/BrickOut/assets/119421688/0060594a-ecfb-4b22-b9a6-b5ca617252bb)
 
