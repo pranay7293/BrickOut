@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallCtrl : MonoBehaviour
@@ -39,6 +37,7 @@ public class BallCtrl : MonoBehaviour
             if (collision.GetComponent<BallShooter>() != null)
             {
                 BallShooter shooter = collision.GetComponent<BallShooter>();
+                shooter.ballsReturned++;
                 Destroy(gameObject);
             }
         }       

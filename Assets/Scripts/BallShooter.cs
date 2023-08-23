@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallShooter : MonoBehaviour
@@ -15,8 +12,8 @@ public class BallShooter : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] LevelController levelController;
 
-    private int currentBallCount;
-    private int ballsReturned;
+    public int currentBallCount;
+    public int ballsReturned;
     private bool hasBallsReturned;
     private bool isShooting = false;
     private bool decreasedHeight;
@@ -50,8 +47,8 @@ public class BallShooter : MonoBehaviour
 
         if (hasBallsReturned && !decreasedHeight)
         {
-            decreasedHeight = true;
             levelController.MoveBricks();
+            decreasedHeight = true;
         }
 
         if (Input.GetMouseButton(0) && !isShooting)
@@ -96,8 +93,7 @@ public class BallShooter : MonoBehaviour
     {
         ballsReturned = 0;
         for (int i = 0; i < ballCount; i++)
-        {
-            currentBallCount--;
+        {            
             yield return new WaitForSeconds(0.2f);
             GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
             ball.GetComponent<Rigidbody2D>().AddForce(transform.up * force);
