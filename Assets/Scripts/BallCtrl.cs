@@ -39,11 +39,8 @@ public class BallCtrl : MonoBehaviour
             if (collision.GetComponent<BallShooter>() != null)
             {
                 BallShooter shooter = collision.GetComponent<BallShooter>();
-                shooter.IncreaseBalls();
                 Destroy(gameObject);
             }
-
-        }
-       
+        }       
     }
 }

@@ -12,9 +12,8 @@ public class BallShooter : MonoBehaviour
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private float force;
     [SerializeField] private int ballCount;
-    [SerializeField] private float resetDelay = 3.0f; 
     [SerializeField] private float speed;
-
+    [SerializeField] LevelController levelController;
 
     private int currentBallCount;
     private int ballsReturned;
@@ -22,7 +21,6 @@ public class BallShooter : MonoBehaviour
     private bool isShooting = false;
     private bool decreasedHeight;
 
-    private Vector3 initialPosition;
     private RaycastHit2D ray;
     private float angle;
 
@@ -53,7 +51,7 @@ public class BallShooter : MonoBehaviour
         if (hasBallsReturned && !decreasedHeight)
         {
             decreasedHeight = true;
-            //levelController.MoveBricks();
+            levelController.MoveBricks();
         }
 
         if (Input.GetMouseButton(0) && !isShooting)
@@ -106,14 +104,5 @@ public class BallShooter : MonoBehaviour
         }
         isShooting = false;
     }
-    private void ResetShooterPosition()
-    {
-        transform.position = initialPosition;
-    }
-
-    public void IncreaseBalls()
-    {
-        currentBallCount++;
-        ballsReturned++;
-    }
+    
 }
