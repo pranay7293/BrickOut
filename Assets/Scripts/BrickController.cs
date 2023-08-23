@@ -3,31 +3,25 @@ using UnityEngine;
 
 public class BrickController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem explosion;
+    [SerializeField] private ParticleSystem explosion1;
+    [SerializeField] private ParticleSystem explosion2;
     [SerializeField] private int brickNumber;
     [SerializeField] private GameObject overlay;
     [SerializeField] TextMesh text;
-    [SerializeField] BrickType type;
     [SerializeField] private LevelController levelController;
+    [SerializeField] BrickType type;
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] private float amp;
-
     private Vector3 initialPos;
+
+
 
     private void Start()
     {
-        if(type != BrickType.Destroyer)
+        if (type != BrickType.Destroyer)
         {
             text.text = brickNumber.ToString();
         }
         initialPos = transform.position;
-    }
-    private void FixedUpdate()
-    {
-        if(type == BrickType.Moving)
-        {
-            transform.position = new Vector3(initialPos.x, Mathf.Sin(Time.time) * amp + initialPos.y, initialPos.z);
-        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -35,26 +29,23 @@ public class BrickController : MonoBehaviour
         {
             //SoundManager.Instance.PlayFX(SoundType.Brick_1_Hit);
             brickNumber--;
-            if(type != BrickType.Destroyer)
+            if (type == BrickType.Stationary && brickNumber == 0)
             {
-                text.text = brickNumber.ToString();
-            }
-            else
+                DestroyBrick();
+            }            
+           else if (type == BrickType.Destroyer && brickNumber == 0)
             {
                 Demolish();
                 DestroyBrick();
             }
+            else
+            {
+                text.text = brickNumber.ToString();
+            }
             overlay.SetActive(true);
             Invoke("RemoveOverlay", 0.25f);
-
-            if (brickNumber == 0)
-            {
-                //levelController.DecreaseBricks();
-                DestroyBrick();
-            }
         }
     }
-
     private void Demolish()
     {
         RaycastHit2D[] rightHits = Physics2D.RaycastAll(initialPos, Vector2.right, 50f, layerMask);
@@ -83,44 +74,42 @@ public class BrickController : MonoBehaviour
             RaycastHit2D hit = bottomHits[i];
             hit.collider.GetComponent<BrickController>().DestroyBrick();
         }
-        for(int i = 0; i < bricks; i++)
+        for (int i = 0; i < bricks; i++)
         {
             levelController.DecreaseBricks();
         }
     }
 
+
+
     public void DestroyBrick()
     {
-        GameObject temp = null;
-        //levelController.DecreaseBricks();
+        levelController.DecreaseBricks();
+
         if (type == BrickType.Stationary)
         {
-            temp = Instantiate(explosion.gameObject, transform.position, Quaternion.identity);
-           // SoundManager.Instance.PlayFX(SoundType.Brick_1_Destroy);
+            GameObject temp = Instantiate(explosion1.gameObject, transform.position, Quaternion.identity);
+            SoundManager.Instance.PlaySound(Sounds.BrickDestroy1);
+            Destroy(gameObject);
+            Destroy(temp, 2.5f);
         }
-        else if (type == BrickType.Moving)
+        else if (type == BrickType.Destroyer)
         {
-            temp = Instantiate(explosion.gameObject, transform.position, Quaternion.identity);
-           // SoundManager.Instance.PlayFX(SoundType.Brick_2_Destroy);
-        }
-        else if(type == BrickType.Destroyer)
-        {
-            temp = Instantiate(explosion.gameObject, transform.position, Quaternion.identity);
-           // SoundManager.Instance.PlayFX(SoundType.Brick_3_Destroy);
-        }
-        Destroy(gameObject);
-        Destroy(temp, 2.5f);
+            GameObject temp = Instantiate(explosion2.gameObject, transform.position, Quaternion.identity);
+            SoundManager.Instance.PlaySound(Sounds.BrickDestroy2);
+            Destroy(gameObject);
+            Destroy(temp, 2.5f);
+        }        
     }
 
     private void RemoveOverlay()
     {
         overlay.SetActive(false);
     }
-
-    public enum BrickType
-    {
-        Stationary,
-        Moving,
-        Destroyer
-    }
+   
+}
+public enum BrickType
+{
+    Stationary,
+    Destroyer
 }
